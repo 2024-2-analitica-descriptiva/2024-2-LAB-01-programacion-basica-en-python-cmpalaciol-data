@@ -24,3 +24,27 @@ def pregunta_09():
      'jjj': 18}}
 
     """
+
+    # Diccionario para almacenar el conteo de registros por clave
+    conteo_por_clave = {}
+
+    # Leer el archivo
+    with open("files/input/data.csv", "r") as file:
+        for line in file:
+            # Dividir la línea en columnas
+            columnas = line.split('\t')
+            # Extraer la columna 5
+            columna_5 = columnas[4]
+            # Dividir la columna 5 en pares clave:valor
+            pares = columna_5.strip().split(',')
+
+            for par in pares:
+                # Separar clave y valor
+                clave, _ = par.split(':')
+                # Incrementar el conteo de la clave en el diccionario
+                conteo_por_clave[clave] = conteo_por_clave.get(clave, 0) + 1
+
+    return conteo_por_clave
+
+# Llamada a la función para probar
+print(pregunta_09())

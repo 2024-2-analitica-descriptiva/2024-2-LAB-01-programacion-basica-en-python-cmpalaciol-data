@@ -26,3 +26,37 @@ def pregunta_06():
      ('jjj', 5, 17)]
 
     """
+  
+    # Diccionario para almacenar los valores mínimo y máximo por clave
+    valores_por_clave = {}
+
+    # Leer el archivo
+    with open("files/input/data.csv", "r") as file:
+        for line in file:
+            # Dividir la línea en columnas
+            columnas = line.split('\t')
+            # Extraer la columna 5
+            columna_5 = columnas[4]
+            # Dividir la columna 5 en pares clave:valor
+            pares = columna_5.strip().split(',')
+
+            for par in pares:
+                # Separar clave y valor
+                clave, valor = par.split(':')
+                valor = int(valor)
+
+                # Actualizar el mínimo y máximo para la clave en el diccionario
+                if clave not in valores_por_clave:
+                    valores_por_clave[clave] = [valor, valor]  # [minimo, maximo]
+                else:
+                    valores_por_clave[clave][0] = min(valores_por_clave[clave][0], valor)
+                    valores_por_clave[clave][1] = max(valores_por_clave[clave][1], valor)
+
+    # Convertir el diccionario en una lista de tuplas ordenada por clave
+    resultado = [(clave, valores[0], valores[1]) for clave, valores in sorted(valores_por_clave.items())]
+
+    return resultado
+
+# Llamada a la función para probar
+print(pregunta_06())
+

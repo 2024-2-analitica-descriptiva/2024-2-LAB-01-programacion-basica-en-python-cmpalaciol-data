@@ -27,3 +27,29 @@ def pregunta_08():
      (9, ['A', 'B', 'C', 'E'])]
 
     """
+
+    # Diccionario para asociar los valores de la columna 2 con letras únicas
+    asociacion = {}
+
+    # Leer el archivo
+    with open("files/input/data.csv", "r") as file:
+        for line in file:
+            # Dividir la línea en columnas
+            columnas = line.split('\t')
+            # Extraer la letra de la columna 1 y el valor de la columna 2
+            letra = columnas[0]
+            valor = int(columnas[1])
+
+            # Actualizar el conjunto de letras asociadas al valor
+            if valor not in asociacion:
+                asociacion[valor] = set()
+            asociacion[valor].add(letra)
+
+    # Convertir los conjuntos a listas, ordenarlas y crear una lista de tuplas
+    resultado = [(valor, sorted(list(letras))) for valor, letras in sorted(asociacion.items())]
+
+    return resultado
+
+# Llamada a la función para probar
+print(pregunta_08())
+

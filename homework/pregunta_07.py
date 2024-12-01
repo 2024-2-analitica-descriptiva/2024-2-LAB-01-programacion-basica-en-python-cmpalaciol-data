@@ -25,3 +25,29 @@ def pregunta_07():
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
 
     """
+    # Diccionario para asociar los valores de la columna 2 con las letras de la columna 1
+    asociacion = {}
+
+    # Leer el archivo
+    with open("files/input/data.csv", "r") as file:
+        for line in file:
+            # Dividir la línea en columnas
+            columnas = line.split('\t')
+            # Extraer la letra de la columna 1 y el valor de la columna 2
+            letra = columnas[0]
+            valor = int(columnas[1])
+
+            # Actualizar la lista de letras asociadas al valor
+            if valor not in asociacion:
+                asociacion[valor] = [letra]
+            else:
+                asociacion[valor].append(letra)
+
+    # Convertir el diccionario en una lista de tuplas ordenada por el valor de la columna 2
+    resultado = sorted(asociacion.items())
+
+    return resultado
+
+# Llamada a la función para probar
+print(pregunta_07())
+
